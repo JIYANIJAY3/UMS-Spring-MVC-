@@ -1,0 +1,12 @@
+com\inexture\model\UserBean.class
+com\inexture\config\WebServletConfiguration.class
+com\inexture\config\SpringConfig.class
+com\inexture\dao\UserDaoInterface.class
+com\inexture\service\UserInterface.class
+com\inexture\config\BeanConfig.class
+com\inexture\controller\LogOutFilter.class
+com\inexture\service\UserImpl.class
+com\inexture\dao\UserDaoImpl.class
+com\inexture\model\UserAddressBean.class
+com\inexture\model\UserProfileBean.class
+com\inexture\controller\HomeController.class
