@@ -2,6 +2,8 @@ package com.inexture.dao;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.inexture.model.UserBean;
 import com.inexture.model.UserProfileBean;
 
@@ -22,4 +24,12 @@ public interface UserDaoInterface {
 	int deleteUserById(int UserId);
 	
 	UserBean getEmployeeById(int UserId);
+	
+	int updateEmployeeDetails(UserBean userBean,MultipartFile[] file);
+	
+	int deleteImage(int imageId);
+	
+	int checkAns(String email, String answer);
+	
+	int updatePassword(int UserId, String Password);
 }

@@ -23,4 +23,12 @@ public interface UserInterface {
 	int deleteUserById(int UserId);
 
 	String getEmployeeById(int UserId);
+	
+	int updateEmployeeDetails(UserBean userBean,MultipartFile[] file);
+	
+	int deleteImage(int imageId);
+	
+	int checkAns(String email, String answer);
+	
+	int updatePassword(int UserId, String Password);
 }

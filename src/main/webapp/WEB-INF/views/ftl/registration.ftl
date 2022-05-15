@@ -1,5 +1,5 @@
+<#import "/spring.ftl" as spring />
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,9 @@
 </head>
 
 <body>
-<#if Session.User??><#include "Header.ftl"></#if>
+<#if role?? && role=="User"><#include "Header.ftl">
+<#elseif role?? && role=="Admin"><#include "AdminHeader.ftl">
+</#if>
     <section>
         <div class="container text-center">
             <div class="row">
@@ -45,11 +47,11 @@
                             <form action="submitform" method="post" id="form" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                     <input type="hidden" id="UserId" value="<#if Session.User??> ${User.userId} </#if>" name="userId"> 
+                                	<input type="hidden" id="UserId" value="<#if Session.User??> ${User.userId}<#else>0 </#if>" name="userId">
                                         <div class="form-outline">
                                             <label class="form-label" for="firstName" name="fname">First
                                                     Name</label> <input type="text" id="firstName" class="form-control
-                                                    form-control-lg" value= '<#if Session.User??> ${User.firstName} </#if>' name="firstName"> <label for="fname" class="error"></label>
+                                                    form-control-lg" value= '<#if Session.User??>${User.firstName?trim}</#if>' name="firstName"> <label for="fname" class="error"></label>
                                         </div>
                                     </div>
 
@@ -58,7 +60,7 @@
                                         <div class="form-outline">
                                             <label class="form-label" for="lastName">Last Name</label>
                                             <input type="text" id="lastName" class="form-control
-                                                    form-control-lg" name="lastName" value= '<#if Session.User??> ${User.lastName} </#if>'>
+                                                    form-control-lg" name="lastName" value= '<#if Session.User??>${User.lastName?trim}</#if>'>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +73,7 @@
                                         <div class="form-outline datepicker
                                                 w-100">
                                             <label for="birthdayDate" class="form-label">Birthday</label>
-                                            <input type="text" name="dob" id="datepicker" class="form-control" value= '<#if Session.User??> ${User.dob} </#if>' autocomplete="off">
+                                            <input type="text" name="dob" id="datepicker" class="form-control" value= '<#if Session.User??>${User.dob?trim}</#if>' autocomplete="off">
                                         </div>
                                     </div>
                                     
@@ -99,7 +101,7 @@
                                         <div class="form-outline">
                                             <label class="form-label" for="emailAddress">Email</label>
                                             <input type="email" id="emailAddress" class="form-control
-                                                    form-control-lg" name="email" value= '<#if Session.User??> ${User.email}</#if>'>
+                                                    form-control-lg" name="email" value= '<#if Session.User??> ${User.email?trim}</#if>'>
                                         </div>
                                         <p id="isEmailPresent"></p>
                                     </div>
@@ -119,7 +121,7 @@
                                         <div class="form-outline">
                                             <label class="form-label" for="mobail">MobailNo</label>
                                             <input type="tel" id="mobail" class="form-control
-                                                    form-control-lg" name="mobaileNo" value= '<#if Session.User??> ${User.mobaileNo}</#if>'>
+                                                    form-control-lg" name="mobaileNo" value= '<#if Session.User??> ${User.mobaileNo?trim}</#if>'>
                                         </div>
                                     </div>
 
@@ -128,17 +130,17 @@
                                         <div class="form-outline">
                                             <div class="form-check
                                                     form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="JAVA"  name="language">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" <#if User?? && User.language?contains("JAVA")>checked</#if> value="JAVA" name="language">
                                                 <label class="form-check-label" for="inlineCheckbox1">JAVA</label>
                                             </div>
                                             <div class="form-check
                                                     form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="JavaScript" name="language">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" <#if User?? && User.language?contains("JavaScript")>checked</#if> value="JavaScript" name="language">
                                                 <label class="form-check-label" for="inlineCheckbox1">JavaScript</label>
                                             </div>
                                             <div class="form-check
                                                     form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="C++" name="language">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" <#if User?? && User.language?contains("C++")>checked</#if> value="C++" name="language">
                                                 <label class="form-check-label" for="inlineCheckbox1">C++</label>
                                             </div>
                                         </div>
@@ -163,7 +165,7 @@
                                             <label class="form-label
                                                     select-label">answer</label>
                                             <input type="text" name="answer" id="answer" class="form-control
-                                                    form-control-lg" value= '<#if Session.User??> ${User.answer}</#if>'>
+                                                    form-control-lg" value= '<#if Session.User??> ${User.answer?trim}</#if>'>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +201,10 @@
                                             <div class="panel-body">
                                                 <div class="row">
                                                     <div class="hello">
-                                                        <input type="hidden" class="useraddress" value="0" name="userAddress[0].addressId" id="addressId_0">
+                                                    <div class="form-group">
+                                                            <input type="hidden" name="userAddress[0].addressId" id="addressId_0"/>
+                                                        </div>
+                                                        
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
@@ -224,8 +229,7 @@
                                                         <div class="form-group">
                                                             <label class="control-label" for="city_0">City</label>
                                                             <input type="text" id="city_0" class="form-control" name="userAddress[0].city" maxlength="64">
-                                                            <p class="help-block
-                                                                    help-block-error"></p>
+                                                             
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -278,7 +282,9 @@
                                 </div>
                             </form>
                             <br>
-                            <a href="index">Login</a>
+                            <#if !role??>
+                           		 <a href="index">Login</a>
+                            </#if>
                         </div>
                     </div>
                 </div>

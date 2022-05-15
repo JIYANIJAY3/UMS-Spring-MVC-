@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,7 @@ public class UserBean implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int UserId;
 
+	@NotBlank
 	@Column(name = "FirstName")
 	private String firstName;
 
@@ -59,7 +61,7 @@ public class UserBean implements Serializable {
 	private String base64Image;
 
 	@Autowired
-	@OneToMany(mappedBy = "userBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "userBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
 	private List<UserAddressBean> userAddress;
 
 	@Autowired

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-@WebFilter("/UserHome/*")
+@WebFilter(urlPatterns = {"/UserHome", "/UserProfile","/updateUserController","/AdminHome","/AdminProfile"})
 public class LogOutFilter implements Filter {
 
 	static final Logger log = Logger.getLogger("debugLog");

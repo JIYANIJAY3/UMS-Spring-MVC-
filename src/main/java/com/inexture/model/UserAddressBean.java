@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,6 +29,8 @@ public class UserAddressBean implements Serializable {
 
 	private String country;
 	private String state;
+	
+	@NotBlank(message = "not empty")
 	private String city;
 	private String pinCode;
 	private String address;
@@ -51,8 +54,13 @@ public class UserAddressBean implements Serializable {
 		return addressId;
 	}
 
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setAddressId(String addressId) {
+
+		if (addressId.isEmpty()) {
+			this.addressId = 0;
+		} else {
+			this.addressId = Integer.parseInt(addressId);
+		}
 	}
 
 	public List<UserAddressBean> getList() {

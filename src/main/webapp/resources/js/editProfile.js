@@ -6,7 +6,7 @@ $(document).ready(function() {
 		url: "GetAllUserAddress",
 		type: "get",
 		dataType: "json",
-		data: { UserId: UserId },
+		data: { userId: UserId },
 		success: function(data) {
 			var dataLength = Object.keys(data).length;
 			for (var i = 0; i < dataLength - 1; i++) {
@@ -49,8 +49,8 @@ $(document).ready(function() {
 					url: "DeleteUserProfile",
 					type: "POST",
 					data: {
-						ProfileId: ProfileId,
-						UserId: UserId,
+						profileId: ProfileId,
+						userId: UserId,
 					},
 					success: function() {
 						$("#" + ProfileId).remove();
@@ -164,25 +164,24 @@ $(document).ready(function() {
 
 		$("#form").validate({
 			rules: {
-				fname: {
+				'userProfile.profiles[]': {
+					accept: "image/*"
+				},
+				firstName: {
 					required: true,
 					minlength: 2,
 					lettersonly: true
 				},
-				lname: {
+				lastName: {
 					required: true,
 					minlength: 2,
 					lettersonly: true
 				},
-				date: "required",
+				dob: "required",
 				gender: "required",
 				email: {
 					required: true,
 					email: true
-				},
-				mobail: {
-					required: true,
-					digits: true
 				},
 				language: {
 					required: true
@@ -190,7 +189,7 @@ $(document).ready(function() {
 				profile: {
 					required: true
 				},
-				'country[0]': {
+				country: {
 					required: true,
 					lettersonly: true
 				},
@@ -213,25 +212,21 @@ $(document).ready(function() {
 				}
 			},
 			messages: {
-				fname: {
+				firstName: {
 					required: "* FirstName Is Required",
 					minlength: "Minimun length is 2",
 					lettersonly: "* Enter Only Character"
 				},
-				lname: {
+				lastName: {
 					required: "* LastName Is Required",
 					minlength: "Minimun length is 2",
 					lettersonly: "* Enter Only Character"
 				},
-				date: "Date Is Requierd",
+				dob: "Date Is Requierd",
 				gender: "* Plese Select One",
 				email: {
 					required: "* Email Is Required",
 					email: "* Enter Valide Email"
-				},
-				mobail: {
-					required: "* Mobail Number Is Required",
-					digits: "* Enter Only Digits"
 				},
 				language: {
 					required: "* Select atleast One"
@@ -276,7 +271,7 @@ $(document).ready(function() {
 				let formdata = new FormData(form);
 				$.ajax({
 					type: "post",
-					url: "UpdateUserProfile",
+					url: "UpdateUserDetails",
 					data: formdata,
 					enctype: 'multipart/form-data',
 
@@ -293,7 +288,7 @@ $(document).ready(function() {
 								confirmButtonText: 'Yes!'
 							}).then((result) => {
 								if (result.isConfirmed) {
-									var successUrl = "AdminHome.jsp";
+									var successUrl = "AdminHome";
 									window.location.href = successUrl;
 								}
 							});
@@ -309,7 +304,7 @@ $(document).ready(function() {
 								confirmButtonText: 'Yes'
 							}).then((result) => {
 								if (result.isConfirmed) {
-									var successUrl = "UserHome.jsp";
+									var successUrl = "UserHome";
 									window.location.href = successUrl;
 								}
 							});

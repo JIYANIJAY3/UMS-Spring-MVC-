@@ -103,6 +103,7 @@ public class UserImpl implements UserInterface {
 		for (UserProfileBean u : up) {
 			UserProfileBean userProfile = new UserProfileBean();
 			userProfile.setBase64Image(Base64.getEncoder().encodeToString(u.getProfiles()));
+			userProfile.setImageId(u.getImageId());
 			list.add(userProfile);
 		}
 
@@ -122,7 +123,7 @@ public class UserImpl implements UserInterface {
 		System.out.println(user.getUserId());
 		for (UserAddressBean l : user.getUserAddress()) {
 			UserAddressBean address = new UserAddressBean();
-			address.setAddressId(l.getAddressId());
+			address.setAddressId(String.valueOf(l.getAddressId()));
 			address.setAddress(l.getAddress());
 			address.setCity(l.getCity());
 			address.setPinCode(l.getPinCode());
@@ -133,7 +134,54 @@ public class UserImpl implements UserInterface {
 		}
 		// Convert List Data To -> JSON Data
 		Gson gson = new Gson();
-		
+
 		return gson.toJson(list);
+	}
+
+	@Override
+	public int updateEmployeeDetails(UserBean user, MultipartFile[] file) {
+
+		List<UserProfileBean> list = new ArrayList<UserProfileBean>();
+
+		if (file.length > 0) {
+			for (MultipartFile f : file) {
+
+				if (f.getSize() > 0) {
+					UserProfileBean bean = new UserProfileBean();
+					try {
+						byte[] b = f.getBytes();
+						bean.setProfiles(b);
+						bean.setUserBean(user);
+						list.add(bean);
+					} catch (Exception e) {
+						log.info(e);
+					}
+				}
+			}
+		}
+
+		user.getUserAddress().stream().forEach(address -> {
+			address.setUserBean(user);
+		});
+		user.setUserProfile(list);
+
+		return this.userDaoImpl.updateEmployeeDetails(user, file);
+	}
+
+	@Override
+	public int deleteImage(int imageId) {
+		return this.userDaoImpl.deleteImage(imageId);
+	}
+
+	@Override
+	public int checkAns(String email, String answer) {	
+		return this.userDaoImpl.checkAns(email, answer);
+	}
+
+	@Override
+	public int updatePassword(int UserId, String Password) {
+
+		String password = BCrypt.hashpw(Password, BCrypt.gensalt());
+		return this.userDaoImpl.updatePassword(UserId, password);
 	}
 }

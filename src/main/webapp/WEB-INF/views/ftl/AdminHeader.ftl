@@ -15,7 +15,7 @@
 					</button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item active"><a class="nav-link" href="AdminHome.ftl" id="profile-link">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="AdminHome" id="profile-link">Home</a></li>
                     </li>
                 </ul>
             </div>
