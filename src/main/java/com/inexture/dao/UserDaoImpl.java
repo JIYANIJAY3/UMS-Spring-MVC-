@@ -2,8 +2,6 @@ package com.inexture.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

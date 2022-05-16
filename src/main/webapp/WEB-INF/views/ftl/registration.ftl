@@ -21,6 +21,14 @@
 <#if role?? && role=="User"><#include "Header.ftl">
 <#elseif role?? && role=="Admin"><#include "AdminHeader.ftl">
 </#if>
+<br><br>
+<div class="container">
+<div class="row">
+<div  class="alert alert-danger" id="error-box" style="display:none">
+<p id="error-msg"></p>
+</div>
+</div>
+</div>
     <section>
         <div class="container text-center">
             <div class="row">
@@ -31,7 +39,6 @@
             </div>
         </div>
     </section>
-
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center
@@ -202,7 +209,7 @@
                                                 <div class="row">
                                                     <div class="hello">
                                                     <div class="form-group">
-                                                            <input type="hidden" name="userAddress[0].addressId" id="addressId_0"/>
+                                                            <input type="hidden" name="userAddress[0].addressId" id="addressId_0" required/>
                                                         </div>
                                                         
                                                     </div>
@@ -211,14 +218,14 @@
                                                             <label class="control-label" for="address_line_one_0">Country
                                                                 </label> <input type="text" id="country_0" class="form-control
                                                                     country
-                                                                    unique" name="userAddress[0].country" maxlength="255">
+                                                                    unique" name="userAddress[0].country" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="address_line_two_0">State
                                                                 </label> <input type="text" id="state_0" class="form-control
-                                                                    unique" name="userAddress[0].state" maxlength="255">
+                                                                    unique" name="userAddress[0].state" required>
                                                             <p class="help-block
                                                                     help-block-error"></p>
                                                         </div>
@@ -228,15 +235,15 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="city_0">City</label>
-                                                            <input type="text" id="city_0" class="form-control" name="userAddress[0].city" maxlength="64">
-                                                             
+                                                            <input type="text" id="city_0" class="form-control" name="userAddress[0].city" required>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="city_0">PinCode</label>
                                                             <input type="text" id="pincode_0" class="form-control
-                                                                    pincode" name="userAddress[0].pinCode" maxlength="64">
+                                                                    pincode" name="userAddress[0].pinCode" required>
                                                             <p class="help-block
                                                                     help-block-error"></p>
                                                         </div>
@@ -246,7 +253,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label class="control-label" for="city_0">Address</label>
-                                                            <input type="text" id="address_0" class="form-control" name="userAddress[0].address" maxlength="64">
+                                                            <input type="text" id="address_0" class="form-control" name="userAddress[0].address" required>
                                                             <p class="help-block
                                                                     help-block-error
                                                                     error"></p>
@@ -302,10 +309,10 @@
     <script src="assets/address-plugin/cloneData.js" type="text/javascript"></script>
     <script src="assets/image-uploader-master/dist/image-uploader.min.js"></script>
  	<script src="assets/js/getdata.js"></script>
- 	
+
  	<#if Session.User??><script src="assets/js/editProfile.js"></script> 
  		<#else>  
- 			 <script src="assets/js/postdata.js"></script>  	
+ 			<script src="assets/js/postdata.js"></script>
  	</#if>
 
     <script>

@@ -1,5 +1,6 @@
 package com.inexture.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +57,12 @@ public class HomeController {
 		return "AdminProfile";
 	}
 
+	@RequestMapping("/adminRegistration")
+	public String adminRegistration(HttpSession session) {
+		session.removeAttribute("User");
+		return "registration";
+	}
+
 	@RequestMapping("/ResetPassword")
 	public String ResetPassword() {
 		return "ResetPassword";
@@ -73,23 +81,25 @@ public class HomeController {
 
 	@ResponseBody
 	@RequestMapping(path = "/submitform", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String submitform(@Valid @RequestParam("userProfile.profiles[]") MultipartFile[] file, UserBean user,
-			Model model, BindingResult bindingResult, HttpServletRequest r) {
-
-		log.info(file);
-
-		log.info(user);
+	public String submitform(@RequestParam("userProfile.profiles[]") MultipartFile[] file, @Valid UserBean user,
+			BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("user", user);
-			return "registration";
-		}
 
-		int status = userImpl.saveUser(user, file);
-		if (status > 0) {
-			return "Successfully Added...";
+			List<FieldError> errorList = bindingResult.getFieldErrors();
+			List<String> errors = new ArrayList<String>();
+
+			for (FieldError er : errorList) {
+				errors.add(er.getDefaultMessage());
+			}
+			return errors.toString();
 		} else {
-			return "";
+			int status = userImpl.saveUser(user, file);
+			if (status > 0) {
+				return "Successfully Added...";
+			} else {
+				return "";
+			}
 		}
 
 	}
@@ -104,7 +114,9 @@ public class HomeController {
 		if (role.equals("Admin")) {
 			session.setAttribute("role", "Admin");
 			UserBean user = userImpl.getEmployeeByEmail(email);
-			session.setAttribute("User", user);
+			List<UserProfileBean> adminProfile = userImpl.getUserImg(user.getUserId());
+			session.setAttribute("Admin", user);
+			session.setAttribute("AdminProfile", adminProfile);
 			return "redirect:AdminHome";
 		} else if (role.equals("User")) {
 
@@ -243,7 +255,7 @@ public class HomeController {
 				return "ResetPassword";
 			}
 		} else {
-			model.addAttribute("error", "somthing went erong");
+			model.addAttribute("error", "somthing went erong try again");
 			return "ResetPassword";
 		}
 	}

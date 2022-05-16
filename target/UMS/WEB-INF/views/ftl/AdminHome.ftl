@@ -26,8 +26,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="button-section">
-                    <a class="btn btn-primary" href="AdminProfile.jsp" role="button">Show
-                            Profile</a> <a class="btn btn-primary" href="registration" role="button">AddUser +</a><a class="btn btn-danger float-end" href="AdminLogout" role="button">LogOut</a>
+                    <a class="btn btn-primary" href="AdminProfile" role="button">Show
+                            Profile</a> <a class="btn btn-primary" href="adminRegistration" role="button">AddUser +</a><a class="btn btn-danger float-end" href="logout" role="button">LogOut</a>
                 </div>
             </div>
         </div>

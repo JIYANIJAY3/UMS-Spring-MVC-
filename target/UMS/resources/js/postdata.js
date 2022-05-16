@@ -3,6 +3,8 @@ $(document).ready(function() {
     var count = 0;
     var isError = false;
 
+
+
     $(".add-btn").click(function() {
         count++;
         console.log("count " + count);
@@ -12,16 +14,16 @@ $(document).ready(function() {
         var regexstate = /^[a-zA-Z\s]+$/;
         var regexcity = /^[a-zA-Z\s]+$/;
         var regexaddress = /^[a-zA-Z\s]+$/;
-
         for (let i = 1; i <= count; i++) {
 
 
-            $("#country_" + i).keyup(function() {
+            $("#country_" + i).focusout(function() {
                 var country = $(this).val();
                 console.log(country)
                 if (!country.match(regescountry)) {
                     console.log("here");
                     isError = true;
+                    $('#country_' + i).after('<p>Phone number has to be 10 digits long.</p>')
                     console.log("Error " + isError)
                 } else {
                     isError = false;
@@ -110,6 +112,7 @@ $(document).ready(function() {
     });
 
     $("#submit-btn").click(function() {
+
         var count = $(".image-uploader").children().find($(".uploaded-image")).length;
         if (count == 0) {
             $(".image-error").show().css("color", "red");
@@ -210,7 +213,7 @@ $(document).ready(function() {
                 language: {
                     required: "* Select atleast One"
                 },
-                'userAddress[0].country': {
+                country: {
                     required: "* Enter Country Name",
                     lettersonly: "* Enter Only Character"
                 },
@@ -261,6 +264,8 @@ $(document).ready(function() {
                             if (response.trim() === "Successfully Added...") {
                                 swal.fire("Successfully Added", "You clicked the submit!", "success");
                             } else {
+								$("#error-box").show();
+								$("#error-msg").html(response);
                                 swal.fire("Somthing Went Wrong please fill the all details", "You clicked the submit!", "warning");
                             }
                         },

@@ -21,7 +21,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item active"><a class="nav-link" href="/UMS/UserProfile" id="profile-link">Profile <span
 									class="sr-only">(current)</span></a></li>
-                    <li class="nav-item"><a class="nav-link" id="edit-btn" href="/UMS/registration">Edit Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" id="edit-btn" href="updateUserController">Edit Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="logout">LogOut</a>
                     </li>
 

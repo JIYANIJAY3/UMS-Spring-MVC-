@@ -27,7 +27,7 @@
  				 </div>
  			 </#if>
                 <div class="form-field">
-                    <form action="ForgotPassword" method="post">
+                    <form action="ForgotPassword" method="post" id="form">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label> <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
                         </div>
@@ -54,6 +54,10 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="assets/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="assets/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="assets/js/ResetPassword.js"></script>
 </body>
 
 </html>

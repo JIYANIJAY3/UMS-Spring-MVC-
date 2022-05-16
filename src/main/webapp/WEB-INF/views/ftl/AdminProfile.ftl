@@ -27,8 +27,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-                                        	<#if Session.User??>
-                                        		<p>${User.firstName}</p>
+                                        	<#if Session.Admin??>
+                                        		<p>${Admin.firstName}</p>
                                         	</#if>
                                         </p>
                                     </div>
@@ -40,8 +40,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.lastName}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.lastName}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -53,8 +53,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.dob}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.dob}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -66,8 +66,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.gender}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.gender}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -79,8 +79,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.email}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.email}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -92,8 +92,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.mobaileNo}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.mobaileNo}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -105,8 +105,8 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-	                                        <#if Session.User??>
-	                                        		<p>${User.language}</p>
+	                                        <#if Session.Admin??>
+	                                        		<p>${Admin.language}</p>
 	                                        </#if>
                                         </p>
                                     </div>
@@ -118,7 +118,9 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">
-                                       
+                                        <#list AdminProfile as profile>
+                                        	<img src="data:image/jpg;base64,${profile.base64Image}" class="image" width="100" height="100" />
+                                        </#list>
                                     </div>
                                 </div>
                                 <hr>

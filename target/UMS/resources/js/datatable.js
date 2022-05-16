@@ -4,7 +4,7 @@ $(document).ready(function() {
 
         "ajax": {
             "url": "getAllUser",
-            "type": "GET",
+            "type": "POST",
             "datatype": "json"
         },
         "columns": [
@@ -16,7 +16,7 @@ $(document).ready(function() {
             { "data": "gender" },
             { "data": "language" },
             { "data": "email" },
-            { "defaultContent": "	<a class='btn btn-success' href='registration' id='edit-btn' role='button'>Edit</a>" },
+            { "defaultContent": "	<a class='btn btn-success' href='updateUserController' id='edit-btn' role='button'>Edit</a>" },
             { "defaultContent": "	<a class='btn btn-danger' id='delete-btn' role='button'>Delete</a>" }
         ]
     });
@@ -62,12 +62,14 @@ $(document).ready(function() {
 
     $('#table_id').on('click', '#edit-btn', function() {
         var data = table.row($(this).parents('tr')).data();
-        var Email = data.Email;
+        var Email = data.email;
+        console.log("Email "+Email)
         var UserId = data.UserId;
+        console.log("UserId "+UserId)
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "GetAllUserDetails",
-            data: { Email: Email, UserId: UserId },
+            data: { email: Email, userId: UserId },
             success: function(response) {
                 //alert("done");
             },

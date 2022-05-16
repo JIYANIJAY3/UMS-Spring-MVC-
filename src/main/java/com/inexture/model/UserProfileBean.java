@@ -77,6 +77,6 @@ public class UserProfileBean implements Serializable {
 	}
 
 	public void setProfiles(byte[] profiles) {
-		this.profiles = profiles;
+		this.profiles = Arrays.copyOf(profiles, profiles.length);
 	}
 }

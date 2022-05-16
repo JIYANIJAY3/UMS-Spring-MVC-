@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,13 +29,17 @@ public class UserBean implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int UserId;
 
-	@NotBlank
+	@NotBlank(message = "firstName is required")
+	@Size(min = 2,message = "firstName: min size 2")
 	@Column(name = "FirstName")
 	private String firstName;
 
+	@NotBlank(message = "lastName is required")
+	@Size(min = 2,message = "lastName:min size 2")
 	@Column(name = "LastName")
 	private String lastName;
 
+	@NotBlank(message = "dob is required")
 	@Column(name = "Dob")
 	private String dob;
 
@@ -43,25 +49,36 @@ public class UserBean implements Serializable {
 	@Transient
 	private String secutiryQuestion;
 
+	@NotBlank(message = "mobaileNo is required")
 	@Column(name = "mobaileNo")
 	private String mobaileNo;
+	
+	@NotBlank(message = "gender is required")
 	private String gender;
+	
+	@NotBlank(message = "answer is required")
 	private String answer;
+	
+	@NotBlank(message = "language is required")
 	private String language;
 
 	@Transient
 	private String hobby;
 
+	@NotBlank(message = "email is required")
 	@Column(name = "Email_Address", unique = true)
 	private String email;
 
+	@NotBlank(message = "password is required")
+	@Size(min = 8,message = "min size 8")
 	private String password;
 
 	@Transient
 	private String base64Image;
 
+	@Valid
 	@Autowired
-	@OneToMany(mappedBy = "userBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "userBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<UserAddressBean> userAddress;
 
 	@Autowired

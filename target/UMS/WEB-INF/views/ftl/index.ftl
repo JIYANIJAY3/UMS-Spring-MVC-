@@ -37,11 +37,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div>
-						<#if errormassage??>
+					<#if errormassage??>
+						<div  class="alert alert-danger" >
 							${errormassage}
-						</#if>
-					</div>
+						</div>
+					</#if>
 					<form action="login" method="post" id="form">
 						<div class="card">
 							<h3 class="text-center  pt-5" style="color: black;">Login
@@ -53,17 +53,17 @@
 								<span>Login with your credentials</span>
 								<div class="mt-3 inputbox">
 									<input type="text" class="form-control"
-									 name="email" placeholder="Email">
+									 name="email" placeholder="Email" value='<#if email??>${email}</#if>'>
 								</div>
 								<div class="inputbox">
 									<input type="password" class="form-control"
 									 name="password"
-										placeholder="Password"> <i class="fa fa-lock"></i>
+										placeholder="Password" value='<#if email??>${password}</#if>'> <i class="fa fa-lock"></i>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between">
 								<div>
-									<a href="ForgetPassword.jsp" class="forgot">Forgot
+									<a href="ResetPassword" class="forgot">Forgot
 										Password?</a>
 								</div>
 							</div>
@@ -88,6 +88,7 @@
 		src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 	<script
 		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+	<script src="assets/js/login.js"></script>
 </body>
 
 </html>

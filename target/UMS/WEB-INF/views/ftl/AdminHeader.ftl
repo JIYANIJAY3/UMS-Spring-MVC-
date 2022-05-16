@@ -9,13 +9,13 @@
 <body>
     <section class="header-section">
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="AdminHome.jsp">Navbar</a>
+            <a class="navbar-brand" href="AdminHome">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item active"><a class="nav-link" href="AdminHome.ftl" id="profile-link">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="AdminHome" id="profile-link">Home</a></li>
                     </li>
                 </ul>
             </div>

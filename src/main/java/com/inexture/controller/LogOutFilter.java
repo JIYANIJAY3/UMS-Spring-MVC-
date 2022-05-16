@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-@WebFilter(urlPatterns = {"/UserHome", "/UserProfile","/updateUserController","/AdminHome","/AdminProfile"})
+@WebFilter(urlPatterns = {"/UserHome", "/UserProfile","/updateUserController","/AdminHome","/AdminProfile","/adminRegistration"})
 public class LogOutFilter implements Filter {
 
 	static final Logger log = Logger.getLogger("debugLog");
@@ -32,9 +32,7 @@ public class LogOutFilter implements Filter {
 		if (session == null) {
 			res.sendRedirect("index");
 		} else {
-			log.info(1);
 			chain.doFilter(req, res);
-			log.info(2);
 		}
 	}
 }
