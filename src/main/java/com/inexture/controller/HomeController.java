@@ -101,7 +101,6 @@ public class HomeController {
 				return "";
 			}
 		}
-
 	}
 
 	@RequestMapping("/login")
@@ -176,9 +175,19 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping(path = "/UpdateUserDetails", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String UpdateUserDetails(@RequestParam("userProfile.profiles[]") MultipartFile[] file, UserBean userBean,
-			HttpSession session, BindingResult result) {
+			BindingResult result, HttpSession session) {
 		UserBean user = (UserBean) session.getAttribute("User");
 		int status = userImpl.updateEmployeeDetails(userBean, file);
+
+		if (result.hasErrors()) {
+			List<FieldError> errorList = result.getFieldErrors();
+			List<String> errors = new ArrayList<String>();
+
+			for (FieldError er : errorList) {
+				errors.add(er.getDefaultMessage());
+			}
+			return errors.toString();
+		}
 
 		if (status > 0 && !user.getRole().equals("User")) {
 			UserBean oldUser = (UserBean) userImpl.getEmployeeByEmail(userBean.getEmail());

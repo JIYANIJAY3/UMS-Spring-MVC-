@@ -33,7 +33,7 @@ public class UserImpl implements UserInterface {
 	public String getAllUser() {
 		List<UserBean> userList = this.userDaoImpl.getAllEmployee();
 
-		List<UserBean> ul = new ArrayList<UserBean>();
+		List<UserBean> userlist = new ArrayList<UserBean>();
 
 		for (UserBean ub : userList) {
 			UserBean ubean = new UserBean();
@@ -45,14 +45,14 @@ public class UserImpl implements UserInterface {
 			ubean.setGender(ub.getGender());
 			ubean.setLanguage(ub.getLanguage());
 			ubean.setEmail(ub.getEmail());
-			ul.add(ubean);
+			userlist.add(ubean);
 		}
 
 		// Convert list To->JSON DATA
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonObject json = new JsonObject();
 
-		json.add("data", gson.toJsonTree(ul));
+		json.add("data", gson.toJsonTree(userlist));
 
 		log.info(json);
 		return json.toString();
@@ -65,14 +65,14 @@ public class UserImpl implements UserInterface {
 	public int saveUser(UserBean user, MultipartFile[] file) {
 
 		List<UserProfileBean> list = new ArrayList<UserProfileBean>();
-		for (MultipartFile f : file) {
+		for (MultipartFile getfile : file) {
 
 			UserProfileBean bean = new UserProfileBean();
 			try {
 
-				byte[] b = f.getBytes();
+				byte[] bytefile = getfile.getBytes();
 
-				bean.setProfiles(b);
+				bean.setProfiles(bytefile);
 				bean.setUserBean(user);
 				list.add(bean);
 			} catch (Exception e) {
@@ -83,8 +83,9 @@ public class UserImpl implements UserInterface {
 		String encrptPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 		user.setPassword(encrptPassword);
 		user.setUserProfile(list);
-		for (UserAddressBean ua : user.getUserAddress()) {
-			ua.setUserBean(user);
+		
+		for (UserAddressBean useraddress : user.getUserAddress()) {
+			useraddress.setUserBean(user);
 		}
 
 		return this.userDaoImpl.saveUser(user);
@@ -97,13 +98,14 @@ public class UserImpl implements UserInterface {
 
 	public List<UserProfileBean> getUserImg(int userid) {
 
+		//up -> userprofile
 		List<UserProfileBean> up = this.userDaoImpl.getUserImg(userid);
 		List<UserProfileBean> list = new ArrayList<UserProfileBean>();
 
-		for (UserProfileBean u : up) {
+		for (UserProfileBean user : up) {
 			UserProfileBean userProfile = new UserProfileBean();
-			userProfile.setBase64Image(Base64.getEncoder().encodeToString(u.getProfiles()));
-			userProfile.setImageId(u.getImageId());
+			userProfile.setBase64Image(Base64.getEncoder().encodeToString(user.getProfiles()));
+			userProfile.setImageId(user.getImageId());
 			list.add(userProfile);
 		}
 
@@ -121,15 +123,15 @@ public class UserImpl implements UserInterface {
 		List<UserAddressBean> list = new ArrayList<UserAddressBean>();
 
 		System.out.println(user.getUserId());
-		for (UserAddressBean l : user.getUserAddress()) {
+		for (UserAddressBean userlist : user.getUserAddress()) {
 			UserAddressBean address = new UserAddressBean();
-			address.setAddressId(String.valueOf(l.getAddressId()));
-			address.setAddress(l.getAddress());
-			address.setCity(l.getCity());
-			address.setPinCode(l.getPinCode());
-			address.setState(l.getState());
-			address.setCountry(l.getCountry());
-			address.setUserId(l.getUserId());
+			address.setAddressId(String.valueOf(userlist.getAddressId()));
+			address.setAddress(userlist.getAddress());
+			address.setCity(userlist.getCity());
+			address.setPinCode(userlist.getPinCode());
+			address.setState(userlist.getState());
+			address.setCountry(userlist.getCountry());
+			address.setUserId(userlist.getUserId());
 			list.add(address);
 		}
 		// Convert List Data To -> JSON Data
@@ -144,13 +146,13 @@ public class UserImpl implements UserInterface {
 		List<UserProfileBean> list = new ArrayList<UserProfileBean>();
 
 		if (file.length > 0) {
-			for (MultipartFile f : file) {
+			for (MultipartFile getfile : file) {
 
-				if (f.getSize() > 0) {
+				if (getfile.getSize() > 0) {
 					UserProfileBean bean = new UserProfileBean();
 					try {
-						byte[] b = f.getBytes();
-						bean.setProfiles(b);
+						byte[] bytefile = getfile.getBytes();
+						bean.setProfiles(bytefile);
 						bean.setUserBean(user);
 						list.add(bean);
 					} catch (Exception e) {

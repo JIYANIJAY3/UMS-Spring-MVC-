@@ -13,7 +13,7 @@ $(document).ready(function() {
 				$("#add-more").trigger('click');
 			}
 			for (var i = 0; i < dataLength; i++) {
-				console.log("hello"+i);
+				console.log("hello" + i);
 				$("#addressId_" + i).val(data[i].addressId);
 				$("#country_" + i).val(data[i].country);
 				$("#state_" + i).val(data[i].state);
@@ -28,8 +28,6 @@ $(document).ready(function() {
 			alert("This Is Error from editprofile")
 		}
 	})
-
-
 
 	$('#form').on('click', '.delete-profile', function() {
 		Swal.fire({
@@ -78,251 +76,200 @@ $(document).ready(function() {
 	var count = 0;
 	var isError = false;
 
+$("#add-more").click(function(e) {
+		$('.country').each(function() {
+			$(this).rules("add", {
+				required: true,
+				lettersonly: true,
+			});
+		});
+		$('.state').each(function() {
+			$(this).rules("add", {
+				required: true,
+				lettersonly: true,
+			});
+		});
+		$('.city').each(function() {
+			$(this).rules("add", {
+				required: true,
+				lettersonly: true,
+			});
+		});
+		$('.pincode').each(function() {
+			$(this).rules("add", {
+				required: true,
+				digits: true,
+				minlength: 6,
+				maxlength: 6
+			});
+		});
+		e.preventDefault();
+	});
+	
 	$("#edit-btn-id").click(function() {
-		count++;
-		console.log("count " + count);
+		$("#form").validate();
+	})
 
-		var regexpincode = /(^[0-9]*$)/;
-		var regescountry = /^[a-zA-Z\s]+$/;
-		var regexstate = /^[a-zA-Z\s]+$/;
-		var regexcity = /^[a-zA-Z\s]+$/;
-		var regexaddress = /^[a-zA-Z\s]+$/;
-
-		for (let i = 1; i <= count; i++) {
-
-
-			$("#country_" + i).keyup(function() {
-				var country = $(this).val();
-				console.log(country)
-				if (!country.match(regescountry)) {
-					console.log("here");
-					isError = true;
-					console.log("Error " + isError)
+	$("#form").validate({
+		rules: {
+			'userProfile.profiles[]': {
+				accept: "image/*"
+			},
+			firstName: {
+				required: true,
+				minlength: 2,
+				lettersonly: true
+			},
+			lastName: {
+				required: true,
+				minlength: 2,
+				lettersonly: true
+			},
+			dob: "required",
+			gender: "required",
+			email: {
+				required: true,
+				email: true
+			},
+			language: {
+				required: true
+			},
+			profile: {
+				required: true
+			},
+			country: {
+				required: true,
+				lettersonly: true
+			},
+			state: {
+				required: true,
+				lettersonly: true
+			},
+			city: {
+				required: true,
+				lettersonly: true
+			},
+			pincode: {
+				required: true,
+				digits: true,
+				minlength: 6,
+				maxlength: 6
+			},
+			address: {
+				required: true
+			}
+		},
+		messages: {
+			firstName: {
+				required: "* FirstName Is Required",
+				minlength: "Minimun length is 2",
+				lettersonly: "* Enter Only Character"
+			},
+			lastName: {
+				required: "* LastName Is Required",
+				minlength: "Minimun length is 2",
+				lettersonly: "* Enter Only Character"
+			},
+			dob: "Date Is Requierd",
+			gender: "* Plese Select One",
+			email: {
+				required: "* Email Is Required",
+				email: "* Enter Valide Email"
+			},
+			language: {
+				required: "* Select atleast One"
+			},
+			profile: {
+				required: "*Please Choose Profile"
+			},
+			country: {
+				required: "* Enter Country Name",
+				lettersonly: "* Enter Only Character"
+			},
+			state: {
+				required: "* Enter State Name",
+				lettersonly: "* Enter Only Character"
+			},
+			city: {
+				required: "* Enter City Name",
+				lettersonly: "* Enter Only Character"
+			},
+			pincode: {
+				required: "* PinCode Is Required",
+				digits: "* Enter Only Digits"
+			},
+			address: {
+				required: "* Enter Address"
+			}
+		}, errorPlacement:
+			function(error, element) {
+				if (element.is(":radio")) {
+					// error append here
+					error.appendTo('#radio');
+				}
+				else if (element.is(":checkbox")) {
+					error.appendTo('#checkbox');
 				}
 				else {
-					isError = false;
-					console.log(isError)
-				}
-			})
-
-			$("#state_" + i).keyup(function() {
-				var state = $(this).val();
-				console.log(state)
-				if (!state.match(regexstate)) {
-					console.log("here");
-					isError = true;
-					console.log("Error " + isError)
-				}
-				else {
-					isError = false;
-					console.log(isError)
-				}
-			})
-
-			$("#city_" + i).keyup(function() {
-				var city = $(this).val();
-				console.log(city)
-				if (!city.match(regexcity)) {
-					console.log("here");
-					isError = true;
-					console.log("Error " + isError)
-				}
-				else {
-					isError = false;
-					console.log(isError)
-				}
-			})
-
-			$("#pincode_" + i).keyup(function() {
-				var pincode = $(this).val();
-				console.log(pincode)
-				if (!pincode.match(regexpincode)) {
-					console.log("here");
-					isError = true;
-					console.log("Error " + isError)
-				}
-				else {
-					isError = false;
-					console.log(isError)
-				}
-			})
-
-			$("#address_" + i).keyup(function() {
-				var address = $(this).val();
-				console.log(address)
-				if (!address.match(regexaddress)) {
-					console.log("here");
-					isError = true;
-					console.log("Error " + isError)
-				}
-				else {
-					isError = false;
-					console.log(isError)
-				}
-			})
-		}
-
-		$("#form").validate({
-			rules: {
-				'userProfile.profiles[]': {
-					accept: "image/*"
-				},
-				firstName: {
-					required: true,
-					minlength: 2,
-					lettersonly: true
-				},
-				lastName: {
-					required: true,
-					minlength: 2,
-					lettersonly: true
-				},
-				dob: "required",
-				gender: "required",
-				email: {
-					required: true,
-					email: true
-				},
-				language: {
-					required: true
-				},
-				profile: {
-					required: true
-				},
-				country: {
-					required: true,
-					lettersonly: true
-				},
-				state: {
-					required: true,
-					lettersonly: true
-				},
-				city: {
-					required: true,
-					lettersonly: true
-				},
-				pincode: {
-					required: true,
-					digits: true,
-					minlength: 6,
-					maxlength: 6
-				},
-				address: {
-					required: true
+					error.insertAfter(element);
 				}
 			},
-			messages: {
-				firstName: {
-					required: "* FirstName Is Required",
-					minlength: "Minimun length is 2",
-					lettersonly: "* Enter Only Character"
-				},
-				lastName: {
-					required: "* LastName Is Required",
-					minlength: "Minimun length is 2",
-					lettersonly: "* Enter Only Character"
-				},
-				dob: "Date Is Requierd",
-				gender: "* Plese Select One",
-				email: {
-					required: "* Email Is Required",
-					email: "* Enter Valide Email"
-				},
-				language: {
-					required: "* Select atleast One"
-				},
-				profile: {
-					required: "*Please Choose Profile"
-				},
-				country: {
-					required: "* Enter Country Name",
-					lettersonly: "* Enter Only Character"
-				},
-				state: {
-					required: "* Enter State Name",
-					lettersonly: "* Enter Only Character"
-				},
-				city: {
-					required: "* Enter City Name",
-					lettersonly: "* Enter Only Character"
-				},
-				pincode: {
-					required: "* PinCode Is Required",
-					digits: "* Enter Only Digits"
-				},
-				address: {
-					required: "* Enter Address"
-				}
-			}, errorPlacement:
-				function(error, element) {
-					if (element.is(":radio")) {
-						// error append here
-						error.appendTo('#radio');
+		submitHandler: function(form, event) {
+			event.preventDefault();
+			let formdata = new FormData(form);
+			$.ajax({
+				type: "post",
+				url: "UpdateUserDetails",
+				data: formdata,
+				enctype: 'multipart/form-data',
+
+				success: function(data) {
+					if (data === "Update") {
+
+						Swal.fire({
+							title: 'Are You Redirect Home Page Press Ok',
+							text: " ",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Yes!'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								var successUrl = "AdminHome";
+								window.location.href = successUrl;
+							}
+						});
 					}
-					else if (element.is(":checkbox")) {
-						error.appendTo('#checkbox');
+					else if (data == "Update User") {
+						Swal.fire({
+							title: 'Are You Redirect Home Page Press Ok',
+							text: " ",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Yes'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								var successUrl = "UserHome";
+								window.location.href = successUrl;
+							}
+						});
+						/*var successUrl = "UserHome.jsp";
+						window.location.href = successUrl;*/
+						//swal.fire("Successfully updated", "You clicked the Edit!", "success");
 					}
 					else {
-						error.insertAfter(element);
+						swal.fire("Somthing Went Wrong", "You clicked the Edit! Please Fill The Details", "warning");
 					}
 				},
-			submitHandler: function(form, event) {
-				event.preventDefault();
-				let formdata = new FormData(form);
-				$.ajax({
-					type: "post",
-					url: "UpdateUserDetails",
-					data: formdata,
-					enctype: 'multipart/form-data',
-
-					success: function(data) {
-						if (data === "Update") {
-
-							Swal.fire({
-								title: 'Are You Redirect Home Page Press Ok',
-								text: " ",
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Yes!'
-							}).then((result) => {
-								if (result.isConfirmed) {
-									var successUrl = "AdminHome";
-									window.location.href = successUrl;
-								}
-							});
-						}
-						else if (data == "Update User") {
-							Swal.fire({
-								title: 'Are You Redirect Home Page Press Ok',
-								text: " ",
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Yes'
-							}).then((result) => {
-								if (result.isConfirmed) {
-									var successUrl = "UserHome";
-									window.location.href = successUrl;
-								}
-							});
-							/*var successUrl = "UserHome.jsp";
-							window.location.href = successUrl;*/
-							//swal.fire("Successfully updated", "You clicked the Edit!", "success");
-						}
-						else {
-							swal.fire("Somthing Went Wrong", "You clicked the Edit! Please Fill The Details", "warning");
-						}
-					},
-					error: function() {
-						swal.fire("Somthing Went Wrong", " ", "warning");
-					},
-					processData: false,
-					contentType: false
-				});
-			},
-		})
+				error: function() {
+					swal.fire("Somthing Went Wrong", " ", "warning");
+				},
+				processData: false,
+				contentType: false
+			});
+		},
 	})
 })

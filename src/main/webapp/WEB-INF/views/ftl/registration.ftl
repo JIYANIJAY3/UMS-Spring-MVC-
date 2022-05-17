@@ -216,16 +216,14 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="address_line_one_0">Country
-                                                                </label> <input type="text" id="country_0" class="form-control
-                                                                    country
-                                                                    unique" name="userAddress[0].country" required>
+                                                                </label> <input type="text" id="country_0" class="form-control unique country" name="userAddress[0].country" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="address_line_two_0">State
                                                                 </label> <input type="text" id="state_0" class="form-control
-                                                                    unique" name="userAddress[0].state" required>
+                                                                    unique state" name="userAddress[0].state" required>
                                                             <p class="help-block
                                                                     help-block-error"></p>
                                                         </div>
@@ -235,7 +233,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="city_0">City</label>
-                                                            <input type="text" id="city_0" class="form-control" name="userAddress[0].city" required>
+                                                            <input type="text" id="city_0" class="form-control city" name="userAddress[0].city" required>
                                                             
                                                         </div>
                                                     </div>
@@ -303,6 +301,8 @@
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
 	<script src="assets/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="assets/jquery-validation/dist/additional-methods.min.js"></script>

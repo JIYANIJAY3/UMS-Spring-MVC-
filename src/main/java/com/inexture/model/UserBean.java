@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class UserBean implements Serializable {
 	private String hobby;
 
 	@NotBlank(message = "email is required")
+	@Pattern(regexp = "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")
 	@Column(name = "Email_Address", unique = true)
 	private String email;
 
